@@ -73,6 +73,7 @@ ADK は関数の引数やコメント情報を整理して LLM に渡し、ど�
 Python の仮想環境を作り
 
 ```bash
+cd ~/cloudshell_open/ai-app-handson
 cp .devcontainer/pyproject.toml .
 uv venv
 source .venv/bin/activate
