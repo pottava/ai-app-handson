@@ -1,12 +1,11 @@
+from .apis import get_user_by_id, get_users
 from .arithmetic_operations import (
     add,
     divide,
+    factorial,
     multiply,
     subtract,
-    factorial,
 )
-from .apis import get_users, get_user_by_id
-
 
 arithmetic_tools = {
     add,

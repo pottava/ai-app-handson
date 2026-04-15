@@ -7,6 +7,13 @@ As this project's AI coding tool, you must follow the additional conventions bel
 A Python-based AI agent project built with Google ADK (Agent Development Kit).
 The agent is defined in `app/agent.py` and all capability functions (tools) live under `app/tools/`.
 
+The root agent (`assistant_agent`) handles two domains:
+
+| Tool set | Functions | Description |
+| ---------------- | ----------------------------------------- | ----------------------------------------- |
+| `arithmetic_tools` | `add`, `subtract`, `multiply`, `divide`, `factorial`, `power`, `square_root` | Basic arithmetic operations |
+| `user_apis` | `get_users`, `get_user_by_id` | Fetch user data from the pet-store API |
+
 ## Tech Stack
 
 | Component         | Details                                   |
@@ -107,6 +114,7 @@ All commands are run from the **project root**.
 - **Docstrings required** — Every tool function must have a Google-style docstring; the framework uses it as the tool description shown to the model.
 - **Agent definition lives in `app/agent.py` only** — Do not instantiate agents elsewhere.
 - **Tool sets managed in `app/tools/__init__.py`** — Export named sets (e.g. `arithmetic_tools`, `user_apis`).
+- **All tool sets must be passed to the agent** — Every named set in `app/tools/__init__.py` must appear in the `tools=` argument of `root_agent` in `app/agent.py`. A tool set that is exported but not wired to an agent is dead code.
 
 ## Available MCP Servers
 

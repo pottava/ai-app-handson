@@ -1,4 +1,0 @@
-google-adk
-google-cloud-aiplatform
-aiohttp
-asyncio

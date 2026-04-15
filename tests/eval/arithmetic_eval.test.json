@@ -1,0 +1,57 @@
+{
+  "eval_set_id": "arithmetic_agent_eval",
+  "name": "算術エージェント評価セット",
+  "description": "算術ツールが正しく呼び出され、正しい答えが返ることを検証する",
+  "eval_cases": [
+    {
+      "eval_id": "test_add_3_4",
+      "conversation": [
+        {
+          "invocation_id": "inv-add-001",
+          "user_content": {
+            "parts": [{ "text": "3 と 4 を足してください" }],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [{ "text": "7" }],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "app",
+        "user_id": "test_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "test_power_2_3",
+      "conversation": [
+        {
+          "invocation_id": "inv-power-001",
+          "user_content": {
+            "parts": [{ "text": "2 の 3 乗を計算してください" }],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [{ "text": "8" }],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "app",
+        "user_id": "test_user",
+        "state": {}
+      }
+    }
+  ]
+}
