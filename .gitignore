@@ -1,6 +1,15 @@
 .venv
 __pycache__
+.pytest_cache
+.ruff_cache
 .env
 tmp
 
 academic-research
+
+# AI tool configuration files
+**/AGENTS.md
+**/CLAUDE.md
+**/.claude/
+**/.mcp.json
+.serena

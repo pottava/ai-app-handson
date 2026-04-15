@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "uv run ruff check app/ tests/",
+        "timeout": 30
+      },
+      {
+        "matcher": "Edit|Write",
+        "command": "uv run ruff format --check app/ tests/",
+        "timeout": 30
+      },
+      {
+        "matcher": "Edit|Write",
+        "command": "uv run pytest tests/ -m 'not e2e' -v",
+        "timeout": 120
+      }
+    ]
+  }
+}

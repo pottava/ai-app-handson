@@ -1,0 +1,58 @@
+{
+  "mcpServers": {
+    "serena": {
+      "type": "stdio",
+      "description": "Code analysis and semantic search MCP server",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--enable-web-dashboard",
+        "false",
+        "--project",
+        "."
+      ],
+      "env": {}
+    },
+    "adk-docs-mcp": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "mcpdoc",
+        "mcpdoc",
+        "--urls",
+        "AgentDevelopmentKit:https://adk.dev/llms.txt",
+        "--transport",
+        "stdio"
+      ]
+    }
+  },
+  "hooks": {
+    "AfterTool": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run ruff check app/ tests/",
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "uv run ruff format --check app/ tests/",
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "uv run pytest tests/ -m 'not e2e' -v",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

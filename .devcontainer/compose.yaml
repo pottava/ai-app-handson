@@ -1,8 +1,17 @@
 services:
   agent:
-    image: arithmetic-operations-agent
-    build: .
+    image: ai-agent
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
     command: sleep infinity
     volumes:
       - ../:/workspace
       - $HOME/.config/gcloud:/root/.config/gcloud
+    environment:
+      - CLAUDE_CODE_USE_VERTEX
+      - ANTHROPIC_VERTEX_PROJECT_ID
+      - ANTHROPIC_MODEL
+      - ANTHROPIC_SMALL_FAST_MODEL
+      - GOOGLE_CLOUD_PROJECT
+      - GEMINI_MODEL

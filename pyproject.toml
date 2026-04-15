@@ -1,0 +1,30 @@
+[project]
+name = "Calculator"
+version = "0.1.0"
+description = "四則演算を行うエージェントです"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.13.5",
+    "asyncio>=4.0.0",
+    "google-adk[eval]>=1.30.0",
+    "google-cloud-aiplatform[adk]>=1.148.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.8.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+markers = ["e2e: end-to-end tests that call the Gemini API (deselect with '-m not e2e')"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
