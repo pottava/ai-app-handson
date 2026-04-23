@@ -74,10 +74,25 @@ mv adk-samples-main/python/agents/academic-research .
 rm -rf main.zip adk-samples-main
 ```
 
-メインのエージェントの定義は <walkthrough-editor-select-line filePath="cloudshell_open/ai-app-handson/academic-research/academic_research/agent.py" startLine="26" endLine="42" startCharacterOffset="0" endCharacterOffset="100">agent.py</walkthrough-editor-select-line> で、シンプルな実装となっています。
+
+## 5. 実装の確認
+
+メインのエージェント定義は <walkthrough-editor-open-file filePath="cloudshell_open/ai-app-handson/academic-research/academic_research/agent.py">この agent.py</walkthrough-editor-open-file> です。
+
+1. 別途定義してあるサブエージェントを <walkthrough-editor-select-line filePath="cloudshell_open/ai-app-handson/academic-research/academic_research/agent.py" startLine="20" endLine="21" startCharacterOffset="0" endCharacterOffset="100">import</walkthrough-editor-select-line> して
+2. <walkthrough-editor-select-line filePath="cloudshell_open/ai-app-handson/academic-research/academic_research/agent.py" startLine="39" endLine="40" startCharacterOffset="0" endCharacterOffset="100">AgentTool として内部的に利用できる</walkthrough-editor-select-line> ようにしています。
+
+マルチエージェント構成において、エージェントの呼び出し方は大きく 2 種類「サブエージェント」と「ツールとしてのエージェント (AgentTool)」があります。使い分け方は [こちらのブログ](https://cloud.google.com/blog/ja/topics/developers-practitioners/where-to-use-sub-agents-versus-agents-as-tools) を参考にしていただけます。
+
+サブエージェントのうち `academic_websearch_agent` についても中身を見てみましょう。
+
+1. ADK が組み込みで用意している <walkthrough-editor-select-line filePath="cloudshell_open/ai-app-handson/academic-research/academic_research/sub_agents/academic_websearch/agent.py" startLine="17" endLine="17" startCharacterOffset="0" endCharacterOffset="100">Google 検索を import</walkthrough-editor-select-line> して
+2. <walkthrough-editor-select-line filePath="cloudshell_open/ai-app-handson/academic-research/academic_research/sub_agents/academic_websearch/agent.py" startLine="29" endLine="29" startCharacterOffset="0" endCharacterOffset="100">Tool として設定</walkthrough-editor-select-line> しているようです。
+
+シンプルですね！
 
 
-## 5. ローカルでの起動
+## 6. ローカルでの起動
 
 Python の仮想環境を作り
 
@@ -93,7 +108,7 @@ uv sync
 
 ```bash
 cd ~/cloudshell_open/ai-app-handson/academic-research
-adk web
+adk web --allow_origins "*"
 ```
 
 1. ターミナルに表示されたリンクをクリックし、Web UI にアクセスし
@@ -107,7 +122,7 @@ adk web
 確認ができたら `Ctrl + C` で起動中の Web サービスを停止しましょう。
 
 
-## 6. クラウドへのデプロイ
+## 7. クラウドへのデプロイ
 
 学術研究サポート アプリケーションを東京リージョンにデプロイしてみます。
 
@@ -134,7 +149,7 @@ uv run deployment/deploy.py --create
 ```
 
 
-## 7. クラウド上のアプリに接続
+## 8. デプロイされたアプリの確認
 
 デプロイがうまくいくと、最後のように以下のような出力があるはずです。
 
@@ -147,9 +162,23 @@ export USER_ID=test-user
 export AGENT_ENGINE_ID=
 ```
 
-以下のコマンドでデプロイしたアプリケーションに対話形式で接続してみましょう。
+出力を見逃してしまった方は、クラウドのコンソールでも確認できます。
+
+[https://console.cloud.google.com/agent-platform/runtimes](https://console.cloud.google.com/agent-platform/runtimes)
+
+画面が開けたら
+
+1. デプロイされた `academic_coordinator` を選択し
+2. `プレイグラウンド` タブの右下で実際にチャットを試し
+3. 画面左ての `セッション` や画面下の `ログ` に変化があることを確認してください
+
+
+## 9. クラウド上のアプリに接続
+
+では、クラウドにデプロイされた AI エージェントに対し、以下のコマンドで `ローカルから` 対話形式で接続してみましょう。
 
 ```bash
+cd ~/cloudshell_open/ai-app-handson/academic-research
 uv run deployment/test_deployment.py --resource_id=${AGENT_ENGINE_ID} --user_id=${USER_ID}
 ```
 
